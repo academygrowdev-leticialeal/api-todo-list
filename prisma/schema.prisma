@@ -1,0 +1,22 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+// Define your data models here
+model Example {
+    id            Int      @id @default(autoincrement())
+    fieldString   String   @map("field_string")
+    fieldNumber   Int      @map("field_number")
+    fieldBoolean  Boolean  @map("field_boolean")
+    fieldDate     DateTime @map("field_date")
+    fieldArray    String[] @map("field_array")
+    fieldObject   Json     @map("field_object")
+    fieldOptional String?  @map("field_optional")
+    createdAt     DateTime @default(now()) @map("created_at")
+    updatedAt     DateTime @default(now()) @updatedAt @map("updated_at")
+}
