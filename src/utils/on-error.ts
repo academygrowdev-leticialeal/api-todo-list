@@ -1,4 +1,5 @@
 import { Response } from "express";
+import { JsonWebTokenError } from "jsonwebtoken";
 
 import { HTTPError } from "./http.error";
 
@@ -8,6 +9,13 @@ export function onError(error: unknown, res: Response): Response {
       success: false,
       message: error.message,
       details: error.details,
+    });
+  }
+
+  if (error instanceof JsonWebTokenError) {
+    return res.status(401).json({
+      success: false,
+      mensagem: "Token inválido ou expirado",
     });
   }
 
